@@ -31,31 +31,31 @@ export class ItemsController {
     }
 
     @Get()
-    findAll(): Item[] {
+    findAll(): Promise<Item[]> {
         return this.itemsService.findAll();
     };
 
     //You can access params using the Param function from @nestjs/common and passing the method decoration the url param
     //then pass the @Param function into the handler function and declare how to use it within the handler
     @Get(':id')
-    findOne(@Param('id') id): Item {
+    findOne(@Param('id') id): Promise<Item> {
         return this.itemsService.findOne(id);
     };
 
     //Access data sent through the body by using the Body function from @nestjs/common and declaring the DTO that we created for the items endpoint
     //the data transfered throgh the object is accessable using dot notation
     @Post()
-    create(@Body() createItemDto: CreateItemDto): string {
-        return `Name: ${createItemDto.name} Desc: ${createItemDto.description}`;
+    create(@Body() createItemDto: CreateItemDto): Promise<Item> {
+        return this.itemsService.create(createItemDto);
     };
 
     @Delete(':id')
-    deleteItem(@Param('id') id): string {
-        return `Delete ${id}`;
+    deleteItem(@Param('id') id): Promise<Item> {
+        return this.itemsService.delete(id);
     };
 
     @Put(':id')
-    update(@Body() updateItemDto: CreateItemDto, @Param('id') id): string {
-        return `Update ${id} - Name: ${updateItemDto.name}`;
+    update(@Body() updateItemDto: CreateItemDto, @Param('id') id): Promise<Item> {
+        return this.itemsService.update(id, updateItemDto);
     }
 }
