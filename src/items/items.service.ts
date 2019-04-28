@@ -22,4 +22,8 @@ export class ItemsService {
         //we can use "this" since we are inside of a class and it refers to the class that we are inside of
         return this.items;
     }
+
+    findOne(id: string): Item {
+        return this.items.find(item => item.id === id);
+    }
 };

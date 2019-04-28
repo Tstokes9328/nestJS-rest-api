@@ -20,6 +20,7 @@ import { Item } from './interfaces/item.interface';
         };
 */
 
+//Controllers define the endpoints and calls a service method to deal with our data
 
 @Controller('items')
 export class ItemsController {
@@ -37,8 +38,8 @@ export class ItemsController {
     //You can access params using the Param function from @nestjs/common and passing the method decoration the url param
     //then pass the @Param function into the handler function and declare how to use it within the handler
     @Get(':id')
-    findOne(@Param('id') id): string {
-        return `Item ${id}`;
+    findOne(@Param('id') id): Item {
+        return this.itemsService.findOne(id);
     };
 
     //Access data sent through the body by using the Body function from @nestjs/common and declaring the DTO that we created for the items endpoint
